@@ -25,3 +25,31 @@ export default function SplineViewer() {
     </div>
   );
 }
+
+
+
+/**
+แสดงผล iframe ของ Spline พร้อมกับการจัดการสถานะการโหลด (loading state)
+โดยใช้ React Suspense เพื่อแสดงข้อความ "กำลังเตรียม 3D Experience..." ขณะโหลดโมเดล 3D
+
+การใช้งาน:
+1. นำเข้า SplineViewer ในไฟล์ที่ต้องการใช้งาน
+2. ใช้ Suspense จาก React เพื่อจัดการ fallback ขณะโหลด
+
+import { Suspense } from 'react'
+
+function SplineLoadingFallback() {
+  return (
+    <div className="w-full h-screen flex items-center justify-center bg-zinc-50 dark:bg-black">
+      <div className="text-center">
+        <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-2 border-zinc-900 dark:border-white mb-4"></div>
+        <p className="text-zinc-600 dark:text-zinc-400 text-lg">กำลังเตรียม 3D Experience...</p>
+      </div>
+    </div>
+  )
+}
+
+<Suspense fallback={<SplineLoadingFallback />}>
+  <SplineViewer />
+</Suspense>
+**/
