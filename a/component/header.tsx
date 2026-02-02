@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 
-function Header() {
+interface HeaderProps {
+  onNavigate?: (sectionIndex: number) => void;
+}
+
+function Header({ onNavigate }: HeaderProps = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -10,13 +14,13 @@ function Header() {
   };
 
   const navItems = [
-    { label: 'หน้าแรก', href: '#' },
-    { label: 'เกี่ยวกับ', href: '#' },
-    { label: 'บริการ', href: '#' },
+    { label: 'หน้าแรก', section: 0 },
+    { label: 'เกี่ยวกับ', section: 1 },
+    { label: 'บริการ', section: 2 },
   ];
 
   const rightNavItems = [
-    { label: 'ติดต่อ', href: '#' },
+    { label: 'ติดต่อ', section: 3 },
     { label: 'บล็อก', href: '#' },
     { label: 'เข้าสู่ระบบ', href: '#' },
   ];
@@ -28,13 +32,13 @@ function Header() {
           {/* Left Navigation - Desktop */}
           <nav className="hidden md:flex gap-2 lg:gap-6">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
-                className="text-gray-700 hover:text-blue-600 font-medium text-sm lg:text-base transition-colors duration-200"
+                onClick={() => onNavigate?.(item.section)}
+                className="text-white hover:text-blue-300 font-medium text-sm lg:text-base transition-colors duration-200 bg-transparent border-none cursor-pointer"
               >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
             
@@ -75,13 +79,23 @@ function Header() {
           {/* Right Navigation - Desktop */}
           <nav className="hidden md:flex gap-2 lg:gap-6">
             {rightNavItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-gray-700 hover:text-blue-600 font-medium text-sm lg:text-base transition-colors duration-200"
-              >
-                {item.label}
-              </a>
+              item.section !== undefined ? (
+                <button
+                  key={item.label}
+                  onClick={() => onNavigate?.(item.section!)}
+                  className="text-white hover:text-blue-300 font-medium text-sm lg:text-base transition-colors duration-200 bg-transparent border-none cursor-pointer"
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-white hover:text-blue-300 font-medium text-sm lg:text-base transition-colors duration-200"
+                >
+                  {item.label}
+                </a>
+              )
             ))}
           </nav>
 
@@ -92,28 +106,43 @@ function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-transparent border-t border-gray-200">
+        <div className="md:hidden bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-t border-gray-200 dark:border-zinc-700">
           <div className="px-4 py-4 space-y-2">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
-                className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium text-base transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  onNavigate?.(item.section);
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 font-medium text-base transition-colors duration-200"
               >
                 {item.label}
-              </a>
+              </button>
             ))}
-            <hr className="my-2" />
+            <hr className="my-2 border-gray-300 dark:border-zinc-700" />
             {rightNavItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium text-base transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.label}
-              </a>
+              item.section !== undefined ? (
+                <button
+                  key={item.label}
+                  onClick={() => {
+                    onNavigate?.(item.section!);
+                    setIsMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 font-medium text-base transition-colors duration-200"
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 font-medium text-base transition-colors duration-200"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              )
             ))}
           </div>
         </div>

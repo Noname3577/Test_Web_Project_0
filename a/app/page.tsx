@@ -1,20 +1,17 @@
 'use cache'
 
 import { cacheLife } from 'next/cache'
-import Header from "@/component/header"
+import FullPageHorizontalScroll from "@/component/FullPageHorizontalScroll"
 
 export const metadata = {
   title: 'Home | Next.js 16 App',
-  description: 'Next.js 16 with 3D Spline Integration',
+  description: 'Next.js 16 with Full Page Horizontal Scroll',
 }
 
-
 export default async function Home() {
-  cacheLife('hours')
+  cacheLife('hours') 
   
   return (
-    <div className="w-full min-h-screen bg-zinc-50 font-sans dark:bg-black">
-      <Header />
-    </div>
+    <FullPageHorizontalScroll />
   );
 }
