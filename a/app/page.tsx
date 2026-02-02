@@ -1,8 +1,11 @@
-"use client";
+'use cache'
 
+import { cacheLife } from 'next/cache'
 import Header from "@/component/header";
 
-export default function Home() {
+export default async function Home() {
+  cacheLife('hours') // แคชหน้านี้ทุกชั่วโมง
+  
   return (
     <div className="w-full min-h-screen bg-zinc-50 font-sans dark:bg-black">
       <Header />
