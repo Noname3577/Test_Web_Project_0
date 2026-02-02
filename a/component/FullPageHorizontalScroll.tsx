@@ -59,6 +59,17 @@ export default function FullPageHorizontalScroll() {
         </div>
       ),
     },
+    {
+      id: 5,
+      title: 'บล็อก',
+      bgColor: 'bg-gradient-to-br from-yellow-500 to-amber-600',
+      content: (
+        <div className="text-center">
+          <h1 className="text-6xl font-bold mb-4">Blog</h1>
+          <p className="text-2xl">บล็อก</p>
+        </div>
+      ),
+    },
   ];
 
   const navigateToSection = (sectionIndex: number) => {

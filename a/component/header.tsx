@@ -21,7 +21,7 @@ function Header({ onNavigate }: HeaderProps = {}) {
 
   const rightNavItems = [
     { label: 'ติดต่อ', section: 3 },
-    { label: 'บล็อก', href: '#' },
+    { label: 'บล็อก', section: 4 },
     { label: 'เข้าสู่ระบบ', href: '#' },
   ];
 
