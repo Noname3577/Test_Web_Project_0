@@ -6,9 +6,9 @@ export default function SplineViewer() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full h-screen overflow-hidden">
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-zinc-50 dark:bg-black">
+        <div className="absolute inset-0 flex items-center justify-center bg-zinc-50 dark:bg-black z-20">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-zinc-900 dark:border-white mb-4"></div>
             <p className="text-zinc-600 dark:text-zinc-400">กำลังโหลด 3D Model...</p>
@@ -17,7 +17,7 @@ export default function SplineViewer() {
       )}
       <iframe
         src="https://my.spline.design/r4xbot-7DzALkHCjWC86AlwWp6THOEU/"
-        className="w-full h-screen"
+        className="w-full h-[110%] -mb-[10%]"
         allow="autoplay; fullscreen"
         loading="lazy"
         onLoad={() => setIsLoading(false)}
