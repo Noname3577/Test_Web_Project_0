@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import Header from './header';
+import Welcome from './page/Welcome';
 
 interface Section {
   id: number;
@@ -20,9 +21,8 @@ export default function FullPageHorizontalScroll() {
       title: 'Welcome',
       bgColor: 'bg-gradient-to-br from-blue-500 to-purple-600',
       content: (
-        <div className="text-center">
-          <h1 className="text-6xl font-bold mb-4">Welcome</h1>
-          <p className="text-2xl">หน้าแรกของเรา</p>
+        <div>
+          <Welcome />
         </div>
       ),
     },
