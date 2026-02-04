@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Header from './header';
 import Welcome from './page/Welcome';
+import Talkai from './page/Talkai';
 
 interface Section {
   id: number;
@@ -32,8 +33,7 @@ export default function FullPageHorizontalScroll() {
       bgColor: 'bg-gradient-to-br from-green-500 to-teal-600',
       content: (
         <div className="text-center">
-          <h1 className="text-6xl font-bold mb-4">talkAI</h1>
-          <p className="text-2xl">คุยกับ AI</p>
+          <Talkai />
         </div>
       ),
     },
