@@ -28,12 +28,12 @@ export default function FullPageHorizontalScroll() {
     },
     {
       id: 2,
-      title: 'About',
+      title: 'talkAI',
       bgColor: 'bg-gradient-to-br from-green-500 to-teal-600',
       content: (
         <div className="text-center">
-          <h1 className="text-6xl font-bold mb-4">About Us</h1>
-          <p className="text-2xl">เกี่ยวกับเรา</p>
+          <h1 className="text-6xl font-bold mb-4">talkAI</h1>
+          <p className="text-2xl">คุยกับ AI</p>
         </div>
       ),
     },

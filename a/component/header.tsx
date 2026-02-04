@@ -15,7 +15,7 @@ function Header({ onNavigate }: HeaderProps = {}) {
 
   const navItems = [
     { label: 'หน้าแรก', section: 0 },
-    { label: 'เกี่ยวกับ', section: 1 },
+    { label: 'talkAI ', section: 1 },
     { label: 'บริการ', section: 2 },
   ];
 
