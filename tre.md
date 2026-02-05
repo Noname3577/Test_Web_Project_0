@@ -147,3 +147,87 @@
 - ระบบ A (เทรนด์): Donchian Breakout + ATR Stop/Trail
 - ระบบ B (ไซด์เวย์): Bollinger Mean Reversion + RSI filter
 - ใส่ตัวกรองสภาวะตลาด (ง่าย ๆ): ใช้ ADX หรือ MA slope เพื่อเลือกว่าจะเปิดระบบ A หรือ B
+
+-----------------------------------------------------
+ถ้าจะทำ “บอท MT5/AI เพื่อคำนวณช่วยเทรด” แนะนำให้แยกเป็น 2 ชั้น: **(A) ชั้นวิเคราะห์/คำนวณสัญญาณ** และ **(B) ชั้นส่งออเดอร์/จัดการความเสี่ยง** แล้วเลือกเทคโนโลยีตามเป้าหมายจริงของคุณ
+
+**ตัวเลือกหลัก (เลือกตามสไตล์งาน)**
+
+- **ทางเลือก 1: ทำบอทเทรดจริงจัง (ออโต้) → ใช้ Python เป็นหลัก**
+  - ใช้ `MetaTrader5` (Python package ทางการ) เพื่อดึงราคา/ส่งออเดอร์จาก Python
+  - ทำส่วนคำนวณด้วย pandas/numpy/ta-lib/pandas-ta + ทำ backtest เอง
+  - เหมาะสุดถ้าคุณอยาก “คุม logic ทุกอย่าง” และทำวิจัย/ทดสอบเยอะ ๆ
+
+- **ทางเลือก 2: อยากได้ framework พร้อมของให้เยอะ → ใช้ https://github.com/Ichinga-Samuel/aiomql#%3A~%3Atext%3D%20%20%20%20%2C%20%20%20%20100.0%25**
+  - https://github.com/Ichinga-Samuel/aiomql#%3A~%3Atext%3D%20%20%20%20%2C%20%20%20%20100.0%25 ช่วยเรื่อง async, รันหลายสัญลักษณ์/หลายกลยุทธ์, session, risk, บันทึก trade, backtesting engine ฯลฯ
+  - เหมาะถ้าคุณอยาก “ประกอบบอทเร็ว” และชอบโครงสร้าง framework
+
+- **ทางเลือก 3: อยาก “คุยกับ AI แล้วให้มันเรียกเครื่องมือ MT5” → ใช้ MCP**
+  - ใช้ https://github.com/Qoyyuum/mcp-metatrader5-server#%3A~%3Atext%3DA%20Model%20Context%20Protocol%20%28MCP%29%2Cwith%20tools%20and%20resources%20to เปิด tools ให้ AI client เรียก (ราคา/แท่งเทียน/ออเดอร์/positions/history)
+  - เหมาะกับ “ผู้ช่วย” มากกว่า “ออโต้เทรดเต็มตัว”
+  - ข้อควรระวัง: ไม่ควรให้ LLM ตัดสินใจยิงออเดอร์แบบไร้กรอบ ควรล็อกกติกา/เพดานความเสี่ยงไว้
+
+**ผมแนะนำแบบ practical สำหรับ “AI เอาไว้คำนวณ”**
+- ถ้า “AI” ของคุณหมายถึง **Machine Learning/สถิติ** (ไม่ได้ใช้แชต LLM): เลือก **Python + MetaTrader5 หรือ aiomql** จะตรงสุด และไม่ต้องใช้ API key LLM
+- ถ้า “AI” ของคุณหมายถึง **ChatGPT/Claude ช่วยคิด/สั่งงาน**: ทำได้ด้วย **MCP** แต่ให้ใช้แบบ *ช่วยวิเคราะห์+สรุป* แล้วให้ “กติกา” เป็นคนตัดสินใจ (เช่น rule-based) จะปลอดภัยกว่า
+
+**Roadmap ที่ควรทำ (ลดพังตอนขึ้นเงินจริง)**
+- เริ่มจาก “อ่านอย่างเดียว”: ดึงราคา/แท่งเทียน → คำนวณอินดิเคเตอร์/สัญญาณ → บันทึกผล
+- ทำ backtest / walk-forward / paper trade (เดโม) ให้ผ่านก่อน
+- ค่อยเพิ่ม execution + risk management + logging/alert + kill switch
+
+**คำถาม 4 ข้อ (ตอบสั้น ๆ ก็ได้) เพื่อฟันธงว่าใช้แบบไหนดีที่สุด**
+1) คุณอยากให้บอท “เทรดอัตโนมัติ” หรือ “แค่คำนวณสัญญาณแล้วคนกดยืนยัน”?  
+2) เทรดอะไร (Forex/ทอง/ดัชนี/หุ้น) และ timeframe ประมาณไหน (M1–H1 หรือ D1)?  
+3) จะรันบน Windows/VPS Windows ได้ไหม (MT5 ฝั่ง terminal มักต้อง Windows)?  
+4) คุณอยากใช้ LLM (ChatGPT/Claude) ใน loop การตัดสินใจไหม หรือใช้ ML/กฎล้วน?
+
+---------------------------------------------------
+
+แหล่งโหลด
+จะค้นหาลิงก์ดาวน์โหลดจากแหล่งทางการ (MetaQuotes/MQL5 และ PyPI) แล้วสรุปให้พร้อมข้อควรระวังเรื่องเว็บปลอมครับ
+
+Searching the web for 'MetaTrader 5 download official MetaQuotes'
+Completed with input: {
+  "query": "MetaTrader 5 download official MetaQuotes"
+}
+
+Searching the web for 'MQL5 MetaTrader 5 terminal download'
+Completed with input: {
+  "query": "MQL5 MetaTrader 5 terminal download"
+}
+
+Searching the web for 'MetaTrader5 python package PyPI MetaTrader5'
+Completed with input: {
+  "query": "MetaTrader5 python package PyPI MetaTrader5"
+}
+
+Searching the web for 'MetaQuotes Python integration MetaTrader5 package documentation'
+Completed with input: {
+  "query": "MetaQuotes Python integration MetaTrader5 package documentation"
+}
+
+Searching the web for 'MetaTrader 5 Microsoft Store app'
+Completed with input: {
+  "query": "MetaTrader 5 Microsoft Store app"
+}
+
+แหล่งโหลดที่ “ทางการ/ปลอดภัย” สำหรับ 2 อย่างนี้มีดังนี้ครับ
+
+**1) MT5 Terminal (MetaTrader 5 Terminal) — ตัวโปรแกรมเทรดบนเครื่อง**
+- หน้า Download ของ MetaQuotes (ทางการ): https://www.metaquotes.net/en/download  
+  มีตัวติดตั้งสำหรับ Windows/macOS/Linux (บน Linux มักเป็นตัวช่วยติดตั้งผ่าน Wine)
+- หน้า Download ของ MetaTrader 5 (ทางการ): https://www.metatrader5.com/en/download  
+  รวม Desktop + Web + Mobile (Android/iOS)
+
+**2) MetaTrader5 integration (สำหรับ Python) — แพ็กเกจที่ให้ Python คุยกับ MT5**
+- เอกสารทางการ (MQL5/MetaQuotes): https://www.mql5.com/en/docs/python_metatrader5  
+  อธิบายฟังก์ชัน `initialize`, `login`, `order_send`, `copy_rates_*` ฯลฯ
+- แพ็กเกจบน PyPI (ติดตั้งด้วย pip): https://pypi.org/project/MetaTrader5/  
+  ติดตั้ง: `pip install MetaTrader5` (หรืออัปเดต `pip install --upgrade MetaTrader5`)
+
+**ข้อควรระวังสั้น ๆ**
+- แนะนำโหลด MT5 จาก 2 ลิงก์ทางการด้านบน หรือจาก “หน้าโหลดของโบรกเกอร์คุณ” เท่านั้น เพื่อลดความเสี่ยงเว็บปลอม/ไฟล์โดนแก้ไข
+- Python integration โดยทั่วไปต้องมี MT5 Terminal ติดตั้งอยู่บนเครื่องเดียวกัน (และรองรับ Windows ดีสุด; บน Linux/macOS มักต้องพึ่ง Wine/วิธี workaround)
+
+ถ้าคุณบอก OS ที่จะติดตั้ง MT5 (Windows หรือ Linux) และอยากใช้ผ่าน https://github.com/Qoyyuum/mcp-metatrader5-server#%3A~%3Atext%3DA%20Model%20Context%20Protocol%20%28MCP%29%2Cwith%20tools%20and%20resources%20to หรือเขียน Python ตรง ๆ ผมจัดขั้นตอนติดตั้งแบบทีละข้อให้ได้ครับ
